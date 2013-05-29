@@ -22,7 +22,13 @@ public static class Logger
             return _logger;
         }
     }
-
+	
+	/// <summary>
+	/// Add tags to the log entry
+	/// </summary>
+	/// <value>
+	/// The tags.
+	/// </value>
     public static TaggedLogger Tags
     {
         get
@@ -30,7 +36,10 @@ public static class Logger
             return new TaggedLogger();
         }
     }
-
+	
+	/// <summary>
+	/// Add tags to the log entry
+	/// </summary>
     public class TaggedLogger
     {
         public string[] tags;
@@ -39,82 +48,221 @@ public static class Logger
         {
             tags = null;
         }
-
+		
+		/// <summary>
+		/// Add tags to the log entry
+		/// </summary>
+		/// <param name='Logtags'>
+		/// The tags to add
+		/// </param>
         public TaggedLogger this[params string[] Logtags]
         {
             get
             {
-                return new TaggedLogger() { tags = Logtags };
+				tags = Logtags;
+                return this;
             }
         }
-
+		
+		/// <summary>
+		/// Log the specified message and optionally additional data.
+		/// </summary>
+		/// <param name='message'>
+		/// The message to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public  void Log(string message = null, params object[] logData)
         {
             logger.addToLog(message, null, tags, logData);
         }
+		
+		/// <summary>
+		/// Log the specified exception and optionally additional data.
+		/// </summary>
+		/// <param name='exception'>
+		/// The Exception to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public void Log(Exception exception, params object[] logData)
         {
             logger.addToLog(null, exception, tags, logData);
         }
-
+		
+		/// <summary>
+		/// Log the specified exception, message and optionally additional data.
+		/// </summary>
+		/// <param name='exception'>
+		/// The Exception to Log
+		/// </param>
+		/// <param name='message'>
+		/// The message to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public void Log(Exception exception, string message = null,  params object[] logData)
         {
             logger.addToLog(message, exception, tags, logData);
         }
-
+		
+		/// <summary>
+		/// Adds a screenshot to the log, optionally with a message and/or additional data
+		/// </summary>
+		/// <param name='message'>
+		/// The optional message to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public void LogWithScreenshot(string message = null, params object[] logData)
         {
             logger.addScreenShotToLog(message, null, tags, logData);
         }
-
+		
+		/// <summary>
+		/// Adds a screenshot and a Exception to the log, and optionally additional data
+		/// </summary>
+		/// <param name='exception'>
+		/// The Exception to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public void LogWithScreenshot(Exception exception, params object[] logData)
         {
             logger.addScreenShotToLog(null, exception, tags, logData);
         }
-
+		
+		/// <summary>
+		/// Adds a screenshot and a Exception to the log, and optionally a message and/or additional data
+		/// </summary>
+		/// <param name='exception'>
+		/// The Exception to Log.
+		/// </param>
+		/// <param name='message'>
+		/// The optional message to Log
+		/// </param>
+		/// <param name='logData'>
+		/// Optional data to log
+		/// </param>
         public void LogWithScreenshot( Exception exception, string message = null, params object[] logData)
         {
             logger.addScreenShotToLog(message, exception, tags, logData);
         }
 
-
     }
-
+	
+	/// <summary>
+	/// Adds an entry to the log, and optionally additional data
+	/// </summary>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void Log(params object[] logData)
     {
         logger.addToLog(null, null, null, logData);
     }
-
+	
+	/// <summary>
+	/// Log the specified message and optionally additional data.
+	/// </summary>
+	/// <param name='message'>
+	/// The message to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void Log(this string message, params object[] logData)
     {
         logger.addToLog(message, null, null, logData);
     }
-
+	
+	/// <summary>
+	/// Log the specified exception and optionally additional data.
+	/// </summary>
+	/// <param name='exception'>
+	/// The Exception to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void Log(this Exception exception, params object[] logData)
     {
         logger.addToLog(null, exception, null, logData);
     }
-
+	
+	/// <summary>
+	/// Log the specified exception, message and optionally additional data.
+	/// </summary>
+	/// <param name='exception'>
+	/// The Exception to Log
+	/// </param>
+	/// <param name='message'>
+	/// The message to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void Log(this Exception exception, string message = null, params object[] logData)
     {
         logger.addToLog(message, exception, null, logData);
     }
 
+	/// <summary>
+	/// Adds a screenshot to the log, and optionally a message and/or additional data.
+	/// </summary>
+	/// <param name='message'>
+	/// The optional message to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void LogWithScreenshot(string message = null, params object[] logData)
     {
         logger.addScreenShotToLog(message, null, null, logData);
     }
-
+	
+	/// <summary>
+	/// Adds a screenshot and a Exception to the log, and optionally additional data.
+	/// </summary>
+	/// <param name='exception'>
+	/// The Exception to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void LogWithScreenshot(this Exception exception, params object[] logData)
     {
         logger.addScreenShotToLog(null, exception, null, logData);
     }
-
+	
+	/// <summary>
+	/// Adds a screenshot and a Exception to the log, and optionally additional data.
+	/// </summary>
+	/// <param name='exception'>
+	/// The Exception to Log
+	/// </param>
+	/// <param name='message'>
+	/// The optional message to Log
+	/// </param>
+	/// <param name='logData'>
+	/// Optional data to log
+	/// </param>
     public static void LogWithScreenshot(this Exception exception, string message = null, params object[] logData)
     {
         logger.addScreenShotToLog(message, exception, null, logData);
     }
-
+	
+	/// <summary>
+	/// Appends the current content of the log to the stringbuilder, wrapped in a HTML table.
+	/// </summary>
+	/// <param name='sb'>
+	/// The Stringbuilder to which we add
+	/// </param>
     public static void HTMLTable(StringBuilder sb)
     {
         logger.ToHTMLTable(sb);
@@ -134,12 +282,25 @@ public static class Logger
 
         public void addToLog(string message = null, Exception exception = null, IEnumerable<string> tags = null, IEnumerable<object> logData = null)
         {
+			var tagstring = "";
+			if (tags != null)
+				foreach(string tag in tags)
+					tagstring += tag + " - ";
+			Debug.Log(tagstring + message??"");
             entries.Add(new LogEntry(message, null, exception, tags, logData));
         }
 
         public void addScreenShotToLog(string message = null, Exception exception = null, IEnumerable<string> tags = null, IEnumerable<object> logData = null)
         {
-            entries.Add(new LogEntry(message, null, exception, tags, logData));
+			var tagstring = "";
+			if (tags != null)
+				foreach(string tag in tags)
+					tagstring += tag + " - ";
+			Debug.Log(tagstring + message??"");
+			var camera = Camera.main;
+			var screenshotter = camera.GetComponent<HiResScreenShots>();
+			var screenShotName = screenshotter.TakeHiResShot();
+            entries.Add(new LogEntry(message, screenShotName, exception, tags, logData));
         }
 
         public IEnumerable<LogEntry> Entries
@@ -150,7 +311,7 @@ public static class Logger
             }
         }
 
-        public string ToString()
+        public override string ToString()
         {
             var sb = new StringBuilder();
             ToHTMLTable(sb);
@@ -293,7 +454,9 @@ public static class Logger
                     this.logData.Add(item.ToLogData());
                 }
             this.exception = null;
-
+			
+			addposition();
+			
             if (imageUrl!=null)
                 addUrl(imageUrl);
             if (message!=null)
@@ -303,7 +466,21 @@ public static class Logger
             if (tags != null)
                 addTags(tags);
         }
-
+		
+		private void addposition()
+		{
+			var player = GameObject.FindWithTag("Player");
+			if (player != null)
+			{
+				position = new Coordinates() {
+					x = player.transform.position.x,
+					y = player.transform.position.y,
+					z = player.transform.position.z,
+					
+				};
+			}
+		}
+		
         private void addMessage(string message)
         {
             this.message = message;

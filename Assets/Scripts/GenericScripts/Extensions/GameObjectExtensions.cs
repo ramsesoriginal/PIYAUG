@@ -21,7 +21,7 @@ public static class GameObjectExtensions {
 		
 		if(component == null)
 		{
-		  Debug.LogError("Expected to find component of type " 
+		  Logger.Log("Expected to find component of type " 
 		     + typeof(T) + " but found none", obj);
 		}
 		

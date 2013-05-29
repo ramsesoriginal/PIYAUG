@@ -12,6 +12,7 @@ public class HiResScreenShots : PIYAUGBehaviourBase {
     public int resHeight = 3300;
  
     private bool takeHiResShot = false;
+	private string fileName = "";
  
     private static string ScreenShotName(int width, int height) {
         return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png", 
@@ -23,8 +24,10 @@ public class HiResScreenShots : PIYAUGBehaviourBase {
 	/// <summary>
 	/// Take a hires shot.
 	/// </summary>
-    public void TakeHiResShot() {
+    public string TakeHiResShot() {
         takeHiResShot = true;
+		fileName = ScreenShotName(resWidth, resHeight);
+		return fileName;
     }
  
 	/// <summary>
@@ -43,10 +46,12 @@ public class HiResScreenShots : PIYAUGBehaviourBase {
             RenderTexture.active = null; // added to avoid errors
             Destroy(rt);
             byte[] bytes = screenShot.EncodeToPNG();
-            string filename = ScreenShotName(resWidth, resHeight);
-            System.IO.File.WriteAllBytes(filename, bytes);
-            Debug.Log(string.Format("Took screenshot to: {0}", filename));
+			if (string.IsNullOrEmpty(fileName))
+            	fileName = ScreenShotName(resWidth, resHeight);
+            System.IO.File.WriteAllBytes(fileName, bytes);
+            Logger.Log(string.Format("Took screenshot to: {0}", fileName));
             takeHiResShot = false;
+			fileName = "";
         }
     }
 }
