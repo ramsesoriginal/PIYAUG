@@ -1,5 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
 
 /// <summary>
 /// Class to log events for debug purposes. Should output pretty HTML
@@ -334,7 +339,7 @@ public static class Logger
         public void ToHTMLRow(StringBuilder sb)
         {
             sb.Append("<tr");
-            if (Tags.Count() > 0)
+            if (Tags != null)
             {
                 sb.Append(" class=\"");
                 foreach (string tag in Tags)
