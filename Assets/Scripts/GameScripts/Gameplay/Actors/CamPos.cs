@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CamPos : PIYAUGBehaviourBase {
 	
+	public float smooth = 0.3f;
 	public Transform player;
 	public float cameraHeight = 6;
 	public bool rotateWithPlayer = false;
@@ -19,13 +20,20 @@ public class CamPos : PIYAUGBehaviourBase {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z);
 		if (rotateWithPlayer)
 		{
-			transform.rotation = new Quaternion(1f,player.rotation.y,0f,1f); 
+			var velocity = player.rigidbody.velocity.magnitude;
+			if (velocity < 0.5f)
+			{
+				velocity = 0.5f;
+			}
+			transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z),  Time.deltaTime * smooth * velocity);
+		    transform.LookAt(player.position);
+		
 		}
 		else
 		{
+			transform.position =  new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z);
 			transform.rotation = new Quaternion(1f,0f,0f,1f);
 		}
 	}
