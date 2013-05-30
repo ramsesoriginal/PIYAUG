@@ -3,15 +3,18 @@ using System.Collections;
 
 public class CamPos : PIYAUGBehaviourBase {
 	
-	private Transform player;
+	public Transform player;
 	public float cameraHeight = 6;
 	public bool rotateWithPlayer = false;
 	
 	// Use this for initialization
 	void Start () {
-		var player = GameObject.FindWithTag("Player");
-		if (player != null)
-			this.player = player.transform;
+		if (this.player == null)
+		{
+			var player = GameObject.FindWithTag("Player");
+			if (player != null)
+				this.player = player.transform;
+		}
 	}
 	
 	// Update is called once per frame
