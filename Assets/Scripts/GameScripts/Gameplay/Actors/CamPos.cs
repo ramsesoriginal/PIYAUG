@@ -7,6 +7,7 @@ public class CamPos : PIYAUGBehaviourBase {
 	public Transform player;
 	public float cameraHeight = 6;
 	public bool rotateWithPlayer = false;
+	private bool moved = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,10 @@ public class CamPos : PIYAUGBehaviourBase {
 			if (velocity < 0.5f)
 			{
 				velocity = 0.5f;
+				moved = true;
+			}
+			if (moved) {
+				velocity = velocity * 2;
 			}
 			transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z),  Time.deltaTime * smooth * velocity);
 		    transform.LookAt(player.position);
