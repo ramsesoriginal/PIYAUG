@@ -158,6 +158,7 @@ ModelImporter:
     400150: TongueBack
     400152: TongueTip
     7400000: WalkJump_ToLeft_R_1
+    7400002: Jump
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -183,6 +184,27 @@ ModelImporter:
       loop: 0
       loopBlend: 0
       loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Jump
+      takeName: _5_B_a_U1_M_P_WalkJump_ToLeft_R_Fb_p0_No_0_1
+      firstFrame: 340
+      lastFrame: 413
+      wrapMode: 0
+      orientationOffsetY: -1.88
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
@@ -735,7 +757,7 @@ ModelImporter:
         max: {x: 0, y: 20, z: 50}
         value: {x: .0246715602, y: 0, z: .0123357801}
         preQ: {x: -.19385998, y: -.0220128093, z: -.34584415, w: .917782903}
-        postQ: {x: -.0765971616, y: -.189696729, z: .0380136408, w: -.978111923}
+        postQ: {x: -.076597169, y: -.189696729, z: .0380136371, w: -.978111923}
         length: .0308394581
         modified: 1
     - boneName: RightHandPinky2
@@ -745,7 +767,7 @@ ModelImporter:
         max: {x: 0, y: 0, z: 45}
         value: {x: .0184511952, y: 0, z: .00922559761}
         preQ: {x: -.0172813907, y: .199690714, z: -.370486438, w: .906953514}
-        postQ: {x: -.0278671142, y: -.187573522, z: .0175463986, w: -.981698334}
+        postQ: {x: -.0278671142, y: -.187573522, z: .0175463948, w: -.981698334}
         length: .0230640024
         modified: 1
     - boneName: RightHandPinky3
@@ -755,11 +777,11 @@ ModelImporter:
         max: {x: 0, y: 0, z: 45}
         value: {x: .0138383983, y: 0, z: .00691919914}
         preQ: {x: -.0550212599, y: .187242642, z: -.319084764, w: .927414477}
-        postQ: {x: -.0271121003, y: -.18889825, z: -.225257143, w: -.955427408}
+        postQ: {x: -.0271121003, y: -.18889825, z: -.225257158, w: -.955427408}
         length: .0172980018
         modified: 1
     skeleton:
-    - name: WalkJump_ToLeft_R_1
+    - name: Jump
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
@@ -1101,7 +1123,7 @@ ModelImporter:
       transformModified: 1
     - name: RightHandPinky1
       position: {x: .0668033436, y: -.00199410855, z: -.0307561457}
-      rotation: {x: -.285981208, y: -.213394433, z: .0213194322, w: .933928728}
+      rotation: {x: -.285981208, y: -.213394448, z: .0213194322, w: .933928788}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightHandPinky2

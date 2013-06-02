@@ -162,6 +162,7 @@ ModelImporter:
     400154: TongueBack
     400156: TongueTip
     7400000: Idle2walk_AllAngles
+    7400002: Turn Left
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -186,6 +187,27 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Turn Left
+      takeName: _105_to_108_a_U1_M_P_idle2walk_AllAngles__Fb_p45-180_No_0_PJ_1
+      firstFrame: 298
+      lastFrame: 335
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: .150000006
+      loop: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -699,7 +721,7 @@ ModelImporter:
         max: {x: 0, y: 0, z: 45}
         value: {x: .0203788932, y: 0, z: .0101894466}
         preQ: {x: -.0825916007, y: -.023612868, z: -.413783073, w: .906313658}
-        postQ: {x: .0278469399, y: .0366049111, z: -.513792276, w: -.85668081}
+        postQ: {x: .0278469473, y: .0366049074, z: -.513792217, w: -.85668081}
         length: .0254736245
         modified: 1
     - boneName: RightHandRing1
