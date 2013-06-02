@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour {
 	List<Item> items;
 	float totalWeight;
 	Item selectedItem;
-	
+	float itemReadyTime;
 	
 	
 	public Pickup ClosestPickup { get { return closestPickup; } }
@@ -17,6 +17,9 @@ public class Inventory : MonoBehaviour {
 	public IEnumerable<Item> Items { get { return items; } }
 	/// <summary>The currently selected item, might also be null.</summary>
 	public Item SelectedItem { get { return selectedItem; } }
+	public bool SelectedItemReady { get { return Time.fixedTime >= itemReadyTime; } }
+	
+	
 	
 	
 	
@@ -32,7 +35,7 @@ public class Inventory : MonoBehaviour {
 			print("PickupClosestItem() -> " + PickupClosestItem());
 		}
 		
-		if (Input.GetKey(KeyCode.W) && selectedItem != null) {
+		if (SelectedItemReady && Input.GetKey(KeyCode.W) && selectedItem != null) {
 			if (selectedItem is WeaponItem) {
 				var wi = (WeaponItem) selectedItem;
 				wi.Fire(transform);
@@ -115,6 +118,7 @@ public class Inventory : MonoBehaviour {
 		if (p) {
 			items.Remove(selectedItem);
 			selectedItem = null;
+			UpdateTotalWeight();
 		}
 		
 		return p;
@@ -128,7 +132,7 @@ public class Inventory : MonoBehaviour {
 		
 		selectedItem = item;
 		
-		// TODO maybe add a delay to prevent instant switching
+		itemReadyTime = Time.fixedTime + selectedItem.ItemType.delayAfterSelect;
 		
 		return true;
 	}
