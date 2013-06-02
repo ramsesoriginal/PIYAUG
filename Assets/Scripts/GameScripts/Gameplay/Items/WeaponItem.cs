@@ -35,7 +35,7 @@ public class WeaponItem : Item {
 		return true;
 	}
 	
-	protected override void TransferStateToPickup (Pickup pickup) {
+	protected override void CopyStateToPickup (Pickup pickup) {
 		var w = pickup as WeaponPickup;
 		if (w == null) return;
 		

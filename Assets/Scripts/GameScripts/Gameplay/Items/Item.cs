@@ -20,12 +20,12 @@ public class Item {
 		
 		// Instantiate object and transfer all relevant state to the new pickup.
 		var pickup = (Pickup) Object.Instantiate(prefab, tf.position, tf.rotation);
-		TransferStateToPickup(pickup);
+		CopyStateToPickup(pickup);
 		
 		return pickup;
 	}
 	
-	protected virtual void TransferStateToPickup(Pickup pickup) {
+	protected virtual void CopyStateToPickup(Pickup pickup) {
 	}
 	
 	public virtual bool CombineWithItem(Item item) {

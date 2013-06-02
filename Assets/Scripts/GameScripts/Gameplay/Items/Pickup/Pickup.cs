@@ -12,6 +12,8 @@ public abstract class Pickup : MonoBehaviour {
 	public abstract ItemType ItemType { get; }
 	public abstract Item CreateItem();
 	
+	public float spinY;
+	
 	void Start() {
 		var prefab = ItemType.pickupGraphics;
 		if (prefab) {
@@ -23,10 +25,10 @@ public abstract class Pickup : MonoBehaviour {
 		}
 	}
 	
-	void OnDrawGizmos() {
-		var pos = transform.position;
-		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(pos, 0.3f);
+	void Update() {
+		if (graphicsTransform) {
+			graphicsTransform.Rotate(Vector3.up, spinY * Time.deltaTime);
+		}
 	}
 	
 }
