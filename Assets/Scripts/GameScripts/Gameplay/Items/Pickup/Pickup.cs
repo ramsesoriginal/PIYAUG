@@ -1,20 +1,32 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class Pickup : MonoBehaviour {
+/// <summary>
+/// Base class for all kinds of Pickups.
+/// </summary>
 
-	public Transform transformOverride;
+public abstract class Pickup : MonoBehaviour {
 	
-	public Transform GetTransform() {
-		if (transformOverride) {
-			return transformOverride;
+	public Transform graphicsTransform;
+	
+	public abstract ItemType ItemType { get; }
+	public abstract Item CreateItem();
+	
+	void Start() {
+		var prefab = ItemType.pickupGraphics;
+		if (prefab) {
+			var pos = graphicsTransform.position;
+			var rot = graphicsTransform.rotation;
+			var o = Instantiate(prefab, pos, rot);
+			var t = (Transform) o;
+			t.parent = graphicsTransform;
 		}
-		return transform;
 	}
 	
-	/// <summary>
-	/// Creates the item for the Inventory can take.
-	/// </summary>
-	public abstract Item CreateItem();
+	void OnDrawGizmos() {
+		var pos = transform.position;
+		Gizmos.color = Color.red;
+		Gizmos.DrawSphere(pos, 0.3f);
+	}
 	
 }

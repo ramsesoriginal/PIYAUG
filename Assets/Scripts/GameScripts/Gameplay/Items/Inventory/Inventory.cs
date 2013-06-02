@@ -142,12 +142,14 @@ public class Inventory : MonoBehaviour {
 	}
 	
 	
+	
 	void UpdateTotalWeight() {
 		totalWeight = 0.0f;
 		foreach (var item in items) {
 			totalWeight += item.ItemType.weight;
 		}
 	}
+	
 	
 	
 	#region Called by InventoryPickupDetector
@@ -160,8 +162,9 @@ public class Inventory : MonoBehaviour {
 			closestPickup = detectedPickup;
 		} else {
 			// Calculate distance to current closest Pickup to detected Pickup
-			float currentDistance = Vector3.Distance(pos, closestPickup.GetTransform().position);
-			float newDistance = Vector3.Distance(pos, detectedPickup.GetTransform().position);
+			var pickupPos = closestPickup.transform.position;
+			var currentDistance = Vector3.Distance(pos, pickupPos);
+			var newDistance = Vector3.Distance(pos, pickupPos);
 			
 			// Choose new Pickup if it's closer
 			if (newDistance < currentDistance) {

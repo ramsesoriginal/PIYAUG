@@ -4,8 +4,8 @@ using System.Collections;
 
 /// <summary>
 /// Inventory pickup detector.
-/// Allows detection of Pickups that use a trigger.
-/// Notifies the linked inventory about detected Pickups.
+/// Allows detection of ItemPickups through a PickupTrigger
+/// Notifies the linked inventory about detected ItemPickup.
 /// </summary>
 
 [RequireComponent(typeof(Collider))]
@@ -16,19 +16,19 @@ public class InventoryPickupDetector : MonoBehaviour {
 	void OnTriggerStay(Collider c) {
 		if (!inventory) return;
 		
-		var pickup = c.GetComponent<Pickup>();
-		if (!pickup) return;
+		var pt = c.GetComponent<PickupTrigger>();
+		if (!pt || !pt.pickup) return;
 		
-		inventory.OnDetectedPickup(pickup);
+		inventory.OnDetectedPickup(pt.pickup);
 	}
 	
 	void OnTriggerExit(Collider c) {
 		if (!inventory) return;
 		
-		var pickup = c.GetComponent<Pickup>();
-		if (!pickup) return;
+		var pt = c.GetComponent<PickupTrigger>();
+		if (!pt || !pt.pickup) return;
 		
-		inventory.OnUndetectedPickup(pickup);
+		inventory.OnUndetectedPickup(pt.pickup);
 	}
 	
 }
