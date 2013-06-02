@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[AddComponentMenu("Items/Inventory")]
 public class Inventory : MonoBehaviour {
 	
 	public Transform itemDropLocation;

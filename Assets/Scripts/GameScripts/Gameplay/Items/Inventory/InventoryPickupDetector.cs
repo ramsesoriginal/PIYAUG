@@ -9,6 +9,7 @@ using System.Collections;
 /// </summary>
 
 [RequireComponent(typeof(Collider))]
+[AddComponentMenu("Items/Inventory Pickup Detector")]
 public class InventoryPickupDetector : MonoBehaviour {
 	
 	public Inventory inventory;

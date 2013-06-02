@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Items/Weapon Type")]
 public class WeaponType : ItemType {
 	public float cooldownTime;
 	public Projectile projectilePrefab;

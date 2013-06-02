@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Items/Weapon Pickup Spawn")]
 public class WeaponPickupSpawn : PickupSpawn {
 	
 	public WeaponType weaponType;

@@ -7,6 +7,7 @@ using System.Collections;
 /// Simply links to an ItemPickup.
 /// </summary>
 
+[AddComponentMenu("Items/Pickup Trigger")]
 public class PickupTrigger : MonoBehaviour {
 	
 	public Pickup pickup;
