@@ -162,6 +162,8 @@ ModelImporter:
     400154: TongueBack
     400156: TongueTip
     7400000: RapidStrafe_90HipsRightFaceFwd
+    7400002: Strafe Right
+    7400004: Strafe Left
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -194,6 +196,48 @@ ModelImporter:
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Strafe Right
+      takeName: _59_a_U1_M_P_RapidStrafe_90HipsRightFaceFwd__Fb_p90_No_0_PJ_2
+      firstFrame: 124
+      lastFrame: 143
+      wrapMode: 0
+      orientationOffsetY: -13.8500004
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Strafe Left
+      takeName: _59_a_U1_M_P_RapidStrafe_90HipsRightFaceFwd__Fb_p90_No_0_PJ_2
+      firstFrame: 124
+      lastFrame: 143
+      wrapMode: 0
+      orientationOffsetY: -13.8500004
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       transformMask: []
@@ -699,7 +743,7 @@ ModelImporter:
         max: {x: 0, y: 0, z: 45}
         value: {x: .0203788765, y: 0, z: .0101894382}
         preQ: {x: -.168382853, y: -.0499626994, z: -.415105104, w: .892658055}
-        postQ: {x: .12678656, y: .0958100706, z: -.506106138, w: -.847704113}
+        postQ: {x: .126786545, y: .0958100483, z: -.506106079, w: -.847704053}
         length: .025473604
         modified: 1
     - boneName: RightHandRing1
@@ -737,10 +781,10 @@ ModelImporter:
       limit:
         min: {x: 0, y: -20, z: -50}
         max: {x: 0, y: 20, z: 50}
-        value: {x: .0246715657, y: 0, z: .0123357829}
-        preQ: {x: -.213804707, y: -.0484113768, z: -.335623085, w: .916133583}
-        postQ: {x: .101385742, y: -.193443045, z: .00311442465, w: -.97585392}
-        length: .0308394656
+        value: {x: .0246715639, y: 0, z: .0123357819}
+        preQ: {x: -.213804722, y: -.0484113507, z: -.335623115, w: .916133702}
+        postQ: {x: .101385742, y: -.19344306, z: .00311443582, w: -.97585392}
+        length: .0308394637
         modified: 1
     - boneName: RightHandPinky2
       humanName: Right Little Intermediate
@@ -748,8 +792,8 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0184512194, y: 0, z: .00922560971}
-        preQ: {x: -.190105811, y: .154387355, z: -.314718306, w: .917047679}
-        postQ: {x: .0328936949, y: -.188299775, z: .00591349602, w: -.981542706}
+        preQ: {x: -.190105841, y: .154387295, z: -.314718276, w: .917047679}
+        postQ: {x: .0328936949, y: -.18829973, z: .00591348857, w: -.981542706}
         length: .0230640341
         modified: 1
     - boneName: RightHandPinky3
@@ -758,8 +802,8 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0138384169, y: 0, z: .00691920845}
-        preQ: {x: -.118740015, y: .168725058, z: -.306346297, w: .9292925}
-        postQ: {x: .0272331834, y: -.135415569, z: -.566152751, w: -.812645018}
+        preQ: {x: -.118740015, y: .168725014, z: -.306346297, w: .9292925}
+        postQ: {x: .0272331443, y: -.135415509, z: -.566152751, w: -.812645018}
         length: .017298026
         modified: 1
     skeleton:
@@ -1110,7 +1154,7 @@ ModelImporter:
       transformModified: 1
     - name: RightHandMiddle3
       position: {x: .0330724716, y: -.00754753686, z: .00168984616}
-      rotation: {x: .0151140252, y: -.00170165033, z: -.607184827, w: .794414878}
+      rotation: {x: .0151140271, y: -.00170165056, z: -.607184887, w: .794414997}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightHandPinky1

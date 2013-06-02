@@ -46,8 +46,10 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 	{
 		float h = InputController.Rotation;				// setup h variable as our horizontal input axis
 		float v = InputController.Vertical;				// setup v variables as our vertical input axis	
+		float s = InputController.Horizontal;				// setup v variables as our vertical input axis	
 		anim.SetFloat("Speed", v);							// set our animator's float parameter 'Speed' equal to the vertical input axis				
 		anim.SetFloat("Direction", h); 						// set our animator's float parameter 'Direction' equal to the horizontal input axis		
+		anim.SetFloat("Strafe", s); 						// set our animator's float parameter 'Direction' equal to the horizontal input axis		
 		anim.speed = animSpeed;								// set the speed of our animator to the public variable 'animSpeed'
 		anim.SetLookAtWeight(lookWeight);					// set the Look At Weight - amount to use look at IK vs using the head's animation
 		currentBaseState = anim.GetCurrentAnimatorStateInfo(0);	// set our currentState variable to the current state of the Base Layer (0) of animation
