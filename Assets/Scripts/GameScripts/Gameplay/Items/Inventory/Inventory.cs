@@ -28,27 +28,28 @@ public class Inventory : MonoBehaviour {
 		
 		// TODO remove this dummy testing code
 		
-		if (Input.GetKeyDown(KeyCode.E)) {
+		if (Input.GetKeyDown(KeyCode.Q)) {
 			print("PickupClosestItem() -> " + PickupClosestItem());
 		}
 		
-		if (Input.GetKey(KeyCode.R) && selectedItem != null) {
+		if (Input.GetKey(KeyCode.W) && selectedItem != null) {
 			if (selectedItem is WeaponItem) {
 				var wi = (WeaponItem) selectedItem;
 				wi.Fire(transform);
 			}
 		}
 		
-		if (Input.GetKeyDown(KeyCode.T)) {
+		if (Input.GetKeyDown(KeyCode.E)) {
 			print("DropItem() -> " + DropSelectedItem());
 		}
 		
-		if (Input.GetKeyDown(KeyCode.Q) && items.Count > 0) {
+		if (Input.GetKeyDown(KeyCode.R) && items.Count > 0) {
 			var i = items.IndexOf(selectedItem);
 			i = i < 0 ? 0 : (i + 1) % items.Count;
 			print ("SelectItem(" + i + ") -> " + SelectItem(items[i]));
 		}
-		if (Input.GetKeyDown(KeyCode.W) && items.Count > 0) {
+		
+		if (Input.GetKeyDown(KeyCode.T) && items.Count > 0) {
 			var i = items.IndexOf(selectedItem);
 			i = i < 0 ? items.Count - 1 : (i - 1 + items.Count) % items.Count;
 			print ("SelectItem(" + i + ") -> " + SelectItem(items[i]));

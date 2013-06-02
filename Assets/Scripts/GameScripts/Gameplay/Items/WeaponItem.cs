@@ -22,7 +22,13 @@ public class WeaponItem : Item {
 		if (Time.time < ReadyTime || AmmoLeft <= 0) return false;
 		
 		var p = (Projectile) Object.Instantiate(WeaponType.projectilePrefab, origin.position, origin.rotation);
-		p.SetVelocity(WeaponType.projectileVelocity);
+		if (WeaponType.overrideProjectileVelocity) {
+			p.velocity = WeaponType.projectileVelocity;
+		}
+		if (WeaponType.overrideProjectileDamage) {
+			p.damage = WeaponType.projectileDamage;
+		}
+		
 		AmmoLeft -= 1;
 		ReadyTime = Time.time + WeaponType.cooldownTime;
 		
