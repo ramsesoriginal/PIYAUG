@@ -4,6 +4,7 @@ using System.Collections;
 public class Life : PIYAUGBehaviourBase {
 	
 	public bool TakeDebugDamage = false;
+	public bool DebugHeal = false;
 	
 	public int MaxHealth = 100;
 	public int StartHealth = 80;
@@ -18,9 +19,10 @@ public class Life : PIYAUGBehaviourBase {
 	}
 	public float ComputedHealth{
 		get {
-			return Health/MaxHealth;
+			return ((float)Health)/MaxHealth;
 		}
 	}
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -31,8 +33,12 @@ public class Life : PIYAUGBehaviourBase {
 	// Update is called once per frame
 	void Update () {
 		if (TakeDebugDamage) {
-			health--;
+			health -= 7;
 			TakeDebugDamage = false;
+		}
+		if (DebugHeal) {
+			health += 7;
+			DebugHeal = false;
 		}
 	}
 }
