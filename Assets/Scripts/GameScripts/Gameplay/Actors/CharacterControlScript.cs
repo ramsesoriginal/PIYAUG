@@ -42,18 +42,16 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		if(anim.layerCount ==2)
 			anim.SetLayerWeight(1, 1);
 	}
-	
-	
 	void FixedUpdate ()
 	{
-		float h = Input.GetAxis("Horizontal");				// setup h variable as our horizontal input axis
-		float v = Input.GetAxis("Vertical");				// setup v variables as our vertical input axis	
+		float h = InputController.Rotation;				// setup h variable as our horizontal input axis
+		float v = InputController.Vertical;				// setup v variables as our vertical input axis	
 		anim.SetFloat("Speed", v);							// set our animator's float parameter 'Speed' equal to the vertical input axis				
 		anim.SetFloat("Direction", h); 						// set our animator's float parameter 'Direction' equal to the horizontal input axis		
 		anim.speed = animSpeed;								// set the speed of our animator to the public variable 'animSpeed'
 		anim.SetLookAtWeight(lookWeight);					// set the Look At Weight - amount to use look at IK vs using the head's animation
 		currentBaseState = anim.GetCurrentAnimatorStateInfo(0);	// set our currentState variable to the current state of the Base Layer (0) of animation
-		
+
 		if(anim.layerCount ==2)		
 			layer2CurrentState = anim.GetCurrentAnimatorStateInfo(1);	// set our layer2CurrentState variable to the current state of the second Layer (1) of animation
 		
@@ -61,7 +59,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		// LOOK AT ENEMY
 		
 		// if we hold Alt..
-		if(Input.GetButton("Fire2"))
+		if(InputController.Action)
 		{
 			// ...set a position to look at with the head, and use Lerp to smooth the look weight from animation to IK (see line 54)
 			anim.SetLookAtPosition(enemy.position);
@@ -78,7 +76,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		// if we are currently in a state called Locomotion (see line 25), then allow Jump input (Space) to set the Jump bool parameter in the Animator to true
 		if (currentBaseState.nameHash == locoState)
 		{
-			if(Input.GetButtonDown("Jump"))
+			if(InputController.Jump.Pressed)
 			{
 				anim.SetBool("Jump", true);
 			}
@@ -154,7 +152,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		// check if we are at idle, if so, let us Wave!
 		else if (currentBaseState.nameHash == idleState)
 		{
-			if(Input.GetButtonUp("Jump"))
+			if(InputController.Jump.Released)
 			{
 				anim.SetBool("Wave", true);
 			}
