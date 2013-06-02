@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class InputController : MonoBehaviour {
+public class InputController : PIYAUGBehaviourBase {
 	
 	public interface Method {
 		void fireAllCallbacks();
@@ -70,7 +70,7 @@ public class InputController : MonoBehaviour {
 		
 		public static implicit operator float(Axis current) 
 		{
-			return current.Value;
+			return current == null ? 0 : current.Value;
 		}
 		
 		public override bool Active {

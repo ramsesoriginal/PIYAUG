@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class AmmoBarFiller : MonoBehaviour {
+public class AmmoBarFiller : PIYAUGBehaviourBase {
 	
 	public float ammo;
 	public float maxAmmo;
