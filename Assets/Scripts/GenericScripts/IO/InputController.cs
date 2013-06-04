@@ -42,11 +42,13 @@ public class InputController : PIYAUGBehaviourBase {
 					callback(this.Value);
 				}
 		}
+		
 	}
 	
 	public class Axis : Method<float> {
 		private string name; 
 		
+		private float oldValue;
 		public override float Value {
 			get {
 				return Input.GetAxis(name);
@@ -75,8 +77,12 @@ public class InputController : PIYAUGBehaviourBase {
 		
 		public override bool Active {
 			get{
-				return Positive || Negative;
+				return oldValue != Value;
 			}
+		}
+		
+		public void saveOldValue() {
+			oldValue = Value;
 		}
 	}
 	
@@ -116,11 +122,14 @@ public class InputController : PIYAUGBehaviourBase {
 				return Held;
 			}
 		}
+		
 	}
 	
 	private static Axis vertical;
 	public static Axis Vertical {
 		get {
+			if (vertical == null)
+				vertical = new Axis("Vertical");
 			return vertical;
 		}
 	}
@@ -128,6 +137,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Axis horizontal;
 	public static Axis Horizontal {
 		get {
+			if (horizontal == null)
+				horizontal = new Axis("Horizontal");
 			return horizontal;
 		}
 	}
@@ -135,6 +146,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Axis rotation;
 	public static Axis Rotation {
 		get {
+			if (rotation == null)
+				rotation = new Axis("Rotation");
 			return rotation;
 		}
 	}
@@ -142,6 +155,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button jump;
 	public static Button Jump {
 		get {
+			if (jump == null)
+				jump = new Button("Jump");
 			return jump;
 		}
 	}
@@ -149,6 +164,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button action;
 	public static Button Action {
 		get {
+			if (action == null)
+				action = new Button("Action");
 			return action;
 		}
 	}
@@ -156,6 +173,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button fire;
 	public static Button Fire {
 		get {
+			if (fire == null)
+				fire = new Button("Fire");
 			return fire;
 		}
 	}
@@ -190,6 +209,8 @@ public class InputController : PIYAUGBehaviourBase {
 		foreach(var input in inputs)
 		{
 			input.fireAllCallbacks();
+			if (input is Axis)
+				((Axis)input).saveOldValue();
 		}
 	}
 }
