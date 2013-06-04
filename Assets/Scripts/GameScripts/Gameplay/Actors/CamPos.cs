@@ -6,6 +6,7 @@ public class CamPos : PIYAUGBehaviourBase {
 	public float smooth = 0.3f;
 	public Transform player;
 	public float cameraHeight = 6;
+	public float cameraBack = 2;
 	public bool rotateWithPlayer = false;
 	private bool moved = false;
 	
@@ -21,6 +22,11 @@ public class CamPos : PIYAUGBehaviourBase {
 	
 	// Update is called once per frame
 	void Update () {
+		var cameraBackOffset = player.forward * -cameraBack;
+		var targetCameraPos = new Vector3(
+			player.position.x,
+			player.position.y + cameraHeight,
+			player.position.z) + cameraBackOffset;
 		if (rotateWithPlayer)
 		{
 			var velocity = player.rigidbody.velocity.magnitude;
@@ -32,13 +38,17 @@ public class CamPos : PIYAUGBehaviourBase {
 			if (moved) {
 				velocity = velocity * 2;
 			}
-			transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z),  Time.deltaTime * smooth * velocity);
+			transform.position = Vector3.Lerp(
+				transform.position, 
+				targetCameraPos,
+				Time.deltaTime * smooth * velocity
+			);
 		    transform.LookAt(player.position);
 		
 		}
 		else
 		{
-			transform.position =  new Vector3(player.position.x, player.position.y + cameraHeight, player.position.z);
+			transform.position =  targetCameraPos;
 			transform.rotation = new Quaternion(1f,0f,0f,1f);
 		}
 	}
