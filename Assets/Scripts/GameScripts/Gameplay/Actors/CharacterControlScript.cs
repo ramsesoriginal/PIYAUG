@@ -39,7 +39,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		// initialising reference variables
 		anim = GetComponent<Animator>();					  
 		col = GetComponent<CapsuleCollider>();				
-		enemy = GameObject.Find("Enemy").transform;	
+		//enemy = GameObject.Find("Enemy").transform;	
 		if(anim.layerCount ==2)
 			anim.SetLayerWeight(1, 1);
 	}
@@ -61,7 +61,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		
 		// LOOK AT ENEMY
 		
-		// if we hold Alt..
+		/*// if we hold Alt..
 		if(InputController.Action)
 		{
 			// ...set a position to look at with the head, and use Lerp to smooth the look weight from animation to IK (see line 54)
@@ -72,7 +72,7 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		else
 		{
 			lookWeight = Mathf.Lerp(lookWeight,0f,Time.deltaTime*lookSmoother);
-		}
+		}*/
 		
 		// STANDARD JUMPING
 		
