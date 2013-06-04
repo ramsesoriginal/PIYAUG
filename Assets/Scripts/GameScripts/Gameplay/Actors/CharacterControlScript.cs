@@ -14,7 +14,6 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 	public Transform enemy;						// a transform to Lerp the camera to during head look
 	
 	public float animSpeed = 1.5f;				// a public setting for overall animator animation speed
-	public float lookSmoother = 3f;				// a smoothing setting for camera motion
 	public bool useCurves;						// a setting for teaching purposes to show use of curves
 
 	
@@ -23,17 +22,39 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 	private AnimatorStateInfo layer2CurrentState;	// a reference to the current state of the animator, used for layer 2
 	private CapsuleCollider col;					// a reference to the capsule collider of the character
 	
+	public bool registInputcallbacks = true;
 
 	static int idleState = Animator.StringToHash("Base Layer.IdleMotion");	
 	static int locoState = Animator.StringToHash("Base Layer.Locomotion");			// these integers are references to our animator's states
 	static int jumpState = Animator.StringToHash("Base Layer.Jump");				// and are used to check state for various actions to occur
-	static int jumpDownState = Animator.StringToHash("Base Layer.JumpDown");		// within our FixedUpdate() function below
-	static int fallState = Animator.StringToHash("Base Layer.Fall");
-	static int rollState = Animator.StringToHash("Base Layer.Roll");
-	static int waveState = Animator.StringToHash("Layer2.Wave");
+	//static int jumpDownState = Animator.StringToHash("Base Layer.JumpDown");		// within our FixedUpdate() function below
+	//static int fallState = Animator.StringToHash("Base Layer.Fall");
+	//static int rollState = Animator.StringToHash("Base Layer.Roll");
+	//static int waveState = Animator.StringToHash("Layer2.Wave");
 	static int idleJumpState = Animator.StringToHash("Base Layer.IdleJump");	
 	
-
+	public void Accelerate(float amount) {
+		anim.SetFloat("Speed", amount);
+	}
+	
+	public void Rotate(float amount) {
+		anim.SetFloat("Direction", amount);
+	}
+	
+	public void Strafe(float amount) {
+		anim.SetFloat("Strafe", amount);
+	}
+	
+	public void Jump(bool trigger) {
+		if (currentBaseState.nameHash == locoState || currentBaseState.nameHash == idleState )
+		{
+			if(InputController.Jump.Pressed) //only on press, not on hold
+			{
+				anim.SetBool("Jump", true);
+			}
+		}
+	}
+	
 	void Start ()
 	{
 		// initialising reference variables
@@ -42,50 +63,25 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		//enemy = GameObject.Find("Enemy").transform;	
 		if(anim.layerCount ==2)
 			anim.SetLayerWeight(1, 1);
+		if (registInputcallbacks) {
+			InputController.Vertical.registerCallback(Accelerate);
+			InputController.Horizontal.registerCallback(Strafe);
+			InputController.Rotation.registerCallback(Rotate);
+			InputController.Jump.registerCallback(Jump);
+		}
 	}
+	
 	void FixedUpdate ()
-	{
-		float h = InputController.Rotation;				// setup h variable as our horizontal input axis
-		float v = InputController.Vertical;				// setup v variables as our vertical input axis	
-		float s = InputController.Horizontal;				// setup v variables as our vertical input axis	
-		anim.SetFloat("Speed", v);							// set our animator's float parameter 'Speed' equal to the vertical input axis				
-		anim.SetFloat("Direction", h); 						// set our animator's float parameter 'Direction' equal to the horizontal input axis		
-		anim.SetFloat("Strafe", s); 						// set our animator's float parameter 'Direction' equal to the horizontal input axis		
-		anim.speed = animSpeed;								// set the speed of our animator to the public variable 'animSpeed'
+	{	
+		anim.speed = animSpeed;
 		anim.SetLookAtWeight(lookWeight);					// set the Look At Weight - amount to use look at IK vs using the head's animation
 		currentBaseState = anim.GetCurrentAnimatorStateInfo(0);	// set our currentState variable to the current state of the Base Layer (0) of animation
 
 		if(anim.layerCount ==2)		
 			layer2CurrentState = anim.GetCurrentAnimatorStateInfo(1);	// set our layer2CurrentState variable to the current state of the second Layer (1) of animation
 		
-		
-		// LOOK AT ENEMY
-		
-		/*// if we hold Alt..
-		if(InputController.Action)
-		{
-			// ...set a position to look at with the head, and use Lerp to smooth the look weight from animation to IK (see line 54)
-			anim.SetLookAtPosition(enemy.position);
-			lookWeight = Mathf.Lerp(lookWeight,1f,Time.deltaTime*lookSmoother);
-		}
-		// else, return to using animation for the head by lerping back to 0 for look at weight
-		else
-		{
-			lookWeight = Mathf.Lerp(lookWeight,0f,Time.deltaTime*lookSmoother);
-		}*/
-		
-		// STANDARD JUMPING
-		
-		// if we are currently in a state called Locomotion (see line 25), then allow Jump input (Space) to set the Jump bool parameter in the Animator to true
-		if (currentBaseState.nameHash == locoState || currentBaseState.nameHash == idleState )
-		{
-			if(InputController.Jump.Pressed)
-			{
-				anim.SetBool("Jump", true);
-			}
-		}
 		// if we are in the jumping state... 
-		else if(currentBaseState.nameHash == jumpState || currentBaseState.nameHash == idleJumpState)
+		if(currentBaseState.nameHash == jumpState || currentBaseState.nameHash == idleJumpState)
 		{
 			//  ..and not still in transition..
 			if(!anim.IsInTransition(0))
@@ -116,12 +112,27 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 			}
 		}
 		
+		// LOOK AT ENEMY
+		
+		/*// if we hold Alt..
+		if(InputController.Action)
+		{
+			// ...set a position to look at with the head, and use Lerp to smooth the look weight from animation to IK (see line 54)
+			anim.SetLookAtPosition(enemy.position);
+			lookWeight = Mathf.Lerp(lookWeight,1f,Time.deltaTime*lookSmoother);
+		}
+		// else, return to using animation for the head by lerping back to 0 for look at weight
+		else
+		{
+			lookWeight = Mathf.Lerp(lookWeight,0f,Time.deltaTime*lookSmoother);
+		}
+		
 		
 		// JUMP DOWN AND ROLL 
 		
 		// if we are jumping down, set our Collider's Y position to the float curve from the animation clip - 
 		// this is a slight lowering so that the collider hits the floor as the character extends his legs
-		else if (currentBaseState.nameHash == jumpDownState)
+		if (currentBaseState.nameHash == jumpDownState)
 		{
 			col.center = new Vector3(0, anim.GetFloat("ColliderY"), 0);
 		}
@@ -149,6 +160,8 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 				
 			}
 		}
+		
+		
 		// IDLE
 		
 		// check if we are at idle, if so, let us Wave!
@@ -163,6 +176,6 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		if(layer2CurrentState.nameHash == waveState)
 		{
 			anim.SetBool("Wave", false);
-		}
+		}*/
 	}
 }
