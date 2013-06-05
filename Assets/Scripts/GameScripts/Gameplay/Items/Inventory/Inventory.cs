@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour {
 	
 	public Transform itemDropLocation;
+	public Transform itemUseTransform;
 	
 	Pickup closestPickup;
 	List<Item> items;
@@ -32,28 +33,30 @@ public class Inventory : MonoBehaviour {
 		
 		// TODO remove this dummy testing code
 		
-		if (Input.GetKeyDown(KeyCode.Q)) {
+		if (Input.GetKeyDown(KeyCode.R)) {
 			print("PickupClosestItem() -> " + PickupClosestItem());
 		}
 		
-		if (SelectedItemReady && Input.GetKey(KeyCode.W) && selectedItem != null) {
+		if (SelectedItemReady && Input.GetKey(KeyCode.F) && selectedItem != null) {
 			if (selectedItem is WeaponItem) {
 				var wi = (WeaponItem) selectedItem;
-				wi.Fire(transform);
+				var t = itemUseTransform;
+				if (!t) t = transform;
+				wi.Fire(t);
 			}
 		}
 		
-		if (Input.GetKeyDown(KeyCode.E)) {
+		if (Input.GetKeyDown(KeyCode.G)) {
 			print("DropItem() -> " + DropSelectedItem());
 		}
 		
-		if (Input.GetKeyDown(KeyCode.R) && items.Count > 0) {
+		if (Input.GetKeyDown(KeyCode.T) && items.Count > 0) {
 			var i = items.IndexOf(selectedItem);
 			i = i < 0 ? 0 : (i + 1) % items.Count;
 			print ("SelectItem(" + i + ") -> " + SelectItem(items[i]));
 		}
 		
-		if (Input.GetKeyDown(KeyCode.T) && items.Count > 0) {
+		if (Input.GetKeyDown(KeyCode.Z) && items.Count > 0) {
 			var i = items.IndexOf(selectedItem);
 			i = i < 0 ? items.Count - 1 : (i - 1 + items.Count) % items.Count;
 			print ("SelectItem(" + i + ") -> " + SelectItem(items[i]));
@@ -145,6 +148,22 @@ public class Inventory : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+	
+	/// <summary>
+	/// Simply erase an Item from the inventory.
+	/// Returns true on success.
+	/// </summary>
+	public bool RemoveItem(Item item) {
+		if (!items.Contains(item)) return false;
+		
+		if (selectedItem == item) {
+			selectedItem = null;
+		}
+		
+		items.Remove(item);
+		
+		return true;
 	}
 	
 	

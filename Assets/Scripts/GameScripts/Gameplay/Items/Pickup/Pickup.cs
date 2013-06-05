@@ -8,11 +8,10 @@ using System.Collections;
 public abstract class Pickup : MonoBehaviour {
 	
 	public Transform graphicsTransform;
+	public float spinY;
 	
 	public abstract ItemType ItemType { get; }
 	public abstract Item CreateItem();
-	
-	public float spinY;
 	
 	void Start() {
 		var prefab = ItemType.pickupGraphics;

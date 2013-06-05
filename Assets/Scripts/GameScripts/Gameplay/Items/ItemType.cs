@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class ItemType : MonoBehaviour {
+[AddComponentMenu("Items/Item Type")]
+public class ItemType : MonoBehaviour {
 	public string displayName;
 	public float weight;
 	public Pickup droppedPrefab;
