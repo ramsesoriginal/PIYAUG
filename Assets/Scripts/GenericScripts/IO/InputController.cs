@@ -12,6 +12,10 @@ public class InputController : PIYAUGBehaviourBase {
 	private static string actionButtonName = "Action";
 	private static string fireButtonName = "Fire";
 	
+	public float Smoothing;
+	
+	private static float smoothing;
+	
 	public interface Method {
 		void fireAllCallbacks();
 		bool Active {
@@ -58,7 +62,7 @@ public class InputController : PIYAUGBehaviourBase {
 		private float oldValue;
 		public override float Value {
 			get {
-				return Input.GetAxis(name);
+				return Mathf.Lerp(oldValue,Input.GetAxis(name),smoothing);
 			}
 		}
 		
@@ -210,6 +214,7 @@ public class InputController : PIYAUGBehaviourBase {
 			fire = new Button(fireButtonName);
 		inputs.Add(fire);
         Screen.lockCursor = true;
+		smoothing = Smoothing;
 	}
 	
 	// Update is called once per frame

@@ -22,8 +22,6 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 	private AnimatorStateInfo layer2CurrentState;	// a reference to the current state of the animator, used for layer 2
 	private CapsuleCollider col;					// a reference to the capsule collider of the character
 	
-	public bool registInputcallbacks = true;
-
 	static int idleState = Animator.StringToHash("Base Layer.IdleMotion");	
 	static int locoState = Animator.StringToHash("Base Layer.Locomotion");			// these integers are references to our animator's states
 	static int jumpState = Animator.StringToHash("Base Layer.Jump");				// and are used to check state for various actions to occur
@@ -63,12 +61,6 @@ public class CharacterControlScript : PIYAUGBehaviourBase
 		//enemy = GameObject.Find("Enemy").transform;	
 		if(anim.layerCount ==2)
 			anim.SetLayerWeight(1, 1);
-		if (registInputcallbacks) {
-			InputController.Vertical.registerCallback(Accelerate);
-			InputController.Horizontal.registerCallback(Strafe);
-			InputController.Rotation.registerCallback(Rotate);
-			InputController.Jump.registerCallback(Jump);
-		}
 	}
 	
 	void FixedUpdate ()
