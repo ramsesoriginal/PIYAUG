@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 public class InputController : PIYAUGBehaviourBase {
 	
+	private static string verticalAxisName = "Vertical";
+	private static string horizontalAxisName = "Horizontal";
+	private static string rotationAxisName = "Rotation";
+	private static string jumpButtonName = "Jump";
+	private static string actionButtonName = "Action";
+	private static string fireButtonName = "Fire";
+	
 	public interface Method {
 		void fireAllCallbacks();
 		bool Active {
@@ -42,11 +49,13 @@ public class InputController : PIYAUGBehaviourBase {
 					callback(this.Value);
 				}
 		}
+		
 	}
 	
 	public class Axis : Method<float> {
 		private string name; 
 		
+		private float oldValue;
 		public override float Value {
 			get {
 				return Input.GetAxis(name);
@@ -75,8 +84,12 @@ public class InputController : PIYAUGBehaviourBase {
 		
 		public override bool Active {
 			get{
-				return Positive || Negative;
+				return oldValue != Value;
 			}
+		}
+		
+		public void saveOldValue() {
+			oldValue = Value;
 		}
 	}
 	
@@ -116,11 +129,14 @@ public class InputController : PIYAUGBehaviourBase {
 				return Held;
 			}
 		}
+		
 	}
 	
 	private static Axis vertical;
 	public static Axis Vertical {
 		get {
+			if (vertical == null)
+				vertical = new Axis(verticalAxisName);
 			return vertical;
 		}
 	}
@@ -128,6 +144,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Axis horizontal;
 	public static Axis Horizontal {
 		get {
+			if (horizontal == null)
+				horizontal = new Axis(horizontalAxisName);
 			return horizontal;
 		}
 	}
@@ -135,6 +153,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Axis rotation;
 	public static Axis Rotation {
 		get {
+			if (rotation == null)
+				rotation = new Axis(rotationAxisName);
 			return rotation;
 		}
 	}
@@ -142,6 +162,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button jump;
 	public static Button Jump {
 		get {
+			if (jump == null)
+				jump = new Button(jumpButtonName);
 			return jump;
 		}
 	}
@@ -149,6 +171,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button action;
 	public static Button Action {
 		get {
+			if (action == null)
+				action = new Button(actionButtonName);
 			return action;
 		}
 	}
@@ -156,6 +180,8 @@ public class InputController : PIYAUGBehaviourBase {
 	private static Button fire;
 	public static Button Fire {
 		get {
+			if (fire == null)
+				fire = new Button(fireButtonName);
 			return fire;
 		}
 	}
@@ -166,23 +192,24 @@ public class InputController : PIYAUGBehaviourBase {
 	void Start () {
 		inputs = new List<Method>();
 		if (vertical == null)
-			vertical = new Axis("Vertical");
+			vertical = new Axis(verticalAxisName);
 		inputs.Add(vertical);
 		if (horizontal == null)
-			horizontal = new Axis("Horizontal");
+			horizontal = new Axis(horizontalAxisName);
 		inputs.Add(horizontal);
 		if (rotation == null)
-			rotation = new Axis("Rotation");
+			rotation = new Axis(rotationAxisName);
 		inputs.Add(rotation);
 		if (jump == null)
-			jump = new Button("Jump");
+			jump = new Button(jumpButtonName);
 		inputs.Add(jump);
 		if (action == null)
-			action = new Button("Action");
+			action = new Button(actionButtonName);
 		inputs.Add(action);
 		if (fire == null)
-			fire = new Button("Fire");
+			fire = new Button(fireButtonName);
 		inputs.Add(fire);
+        Screen.lockCursor = true;
 	}
 	
 	// Update is called once per frame
@@ -190,6 +217,8 @@ public class InputController : PIYAUGBehaviourBase {
 		foreach(var input in inputs)
 		{
 			input.fireAllCallbacks();
+			if (input is Axis)
+				((Axis)input).saveOldValue();
 		}
 	}
 }
