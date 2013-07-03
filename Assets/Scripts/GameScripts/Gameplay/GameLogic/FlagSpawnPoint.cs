@@ -12,5 +12,10 @@ public class FlagSpawnPoint : MonoBehaviour {
 		Gizmos.color = Color.gray;
 		Gizmos.DrawSphere(pos, 0.35f);
 	}
+	
+	void OnDrawGizmosSelected() {
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, 0.75f);
+	}
 
 }
