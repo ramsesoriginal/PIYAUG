@@ -42,6 +42,11 @@ public abstract class PickupSpawn : MonoBehaviour {
 		Gizmos.DrawSphere(pos, 0.3f);
 	}
 	
+	void OnDrawGizmosSelected() {
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, 0.5f);
+	}
+
 	/// <summary>
 	/// Copies additional state to the created pickup.
 	/// </summary>

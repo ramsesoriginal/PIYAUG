@@ -19,4 +19,9 @@ public class SpawnPoint : MonoBehaviour {
 		Gizmos.DrawLine(pos + transform.forward, pos + Vector3.Lerp(transform.forward, transform.right, 0.2f));
 	}
 	
+	void OnDrawGizmosSelected() {
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, 0.75f);
+	}
+
 }
