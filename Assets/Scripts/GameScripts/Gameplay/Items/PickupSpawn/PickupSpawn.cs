@@ -38,7 +38,7 @@ public abstract class PickupSpawn : MonoBehaviour {
 	
 	void OnDrawGizmos() {
 		var pos = transform.position;
-		Gizmos.color = Color.red;
+		Gizmos.color = Color.yellow;
 		Gizmos.DrawSphere(pos, 0.3f);
 	}
 	
